@@ -5,7 +5,7 @@ using System.Xml;
 
 namespace StockSelect
 {
-    public static class SerailizeHelper
+    public static class SerializeHelper
     {
         public static string Serialize(object o)
         {

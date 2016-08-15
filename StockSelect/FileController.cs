@@ -17,15 +17,36 @@ namespace StockSelect
 			folderPath = Directory.GetCurrentDirectory() + folderPath;
 		}
 
-		public void WriteTextFile(List<StockInfo> stock_list)
-		{
+        public void WriteXML(object o)
+        {
+    
+            System.Xml.Serialization.XmlSerializer writer =
+                new System.Xml.Serialization.XmlSerializer(o.GetType());
 
-		}
+            string path = folderPath + @"\data.xml";
+            System.IO.FileStream file = System.IO.File.Create(path);
 
-		public bool CheckFileExist(DateTime Date)
+            writer.Serialize(file, o);
+            file.Close();
+        }
+
+        public T ReadXML<T>()
+        {
+            // Now we can read the serialized book ...
+            System.Xml.Serialization.XmlSerializer reader =
+                new System.Xml.Serialization.XmlSerializer(typeof(T));
+            string path = folderPath + @"\data.xml";
+            System.IO.StreamReader file = new System.IO.StreamReader(path);
+
+            T obj = (T)reader.Deserialize(file);
+            file.Close();
+
+            return obj;
+        }
+
+        public bool CheckFileExist()
 		{
-			string sDate = Date.ToShortDateString();
-			return File.Exists(@"\Data\" + sDate + ".txt");
+			return File.Exists(folderPath + @"\data.xml");
 		}
 
 		public void CreateFolder()

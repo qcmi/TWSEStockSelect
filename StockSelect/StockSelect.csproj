@@ -58,6 +58,7 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SerailizeHelper.cs" />
     <Compile Include="StockInfo.cs" />
     <Compile Include="TWSEDataGrabber.cs" />
     <EmbeddedResource Include="MainForm.resx">

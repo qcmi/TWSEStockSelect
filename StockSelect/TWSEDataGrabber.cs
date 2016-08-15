@@ -36,6 +36,11 @@ namespace StockSelect
 			return this.data_list;
 		}
 
+        public void SetStockInfoList(List<StockInfo> list)
+        {
+            this.data_list = list;
+        }
+
 		public void DownloadDataRange(DateTime EndDate, int backDays, MainForm form)
 		{
 			int count = 0;

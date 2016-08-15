@@ -15,11 +15,16 @@ namespace StockSelect
 	{
 		TWSEDataGrabber dataGrabber = new TWSEDataGrabber();
 		BindingList<StockView> day1_list = new BindingList<StockView>();
+        FileController controller = new FileController();
 
-		public MainForm()
+        public MainForm()
 		{
 			InitializeComponent();
 			this.panelProgress.Visible = false;
+            if (controller.CheckFileExist())
+            {
+                this.dataGrabber.SetStockInfoList(controller.ReadXML<List<StockInfo>>());
+            }
 		}
 
 		private void buttonDownload_Click(object sender, EventArgs e)
@@ -112,5 +117,10 @@ namespace StockSelect
 		{
 			this.dataGridViewDay1.DataSource = new BindingSource(this.day1_list, null);
 		}
-	}
+
+        private void buttonSaveXml_Click(object sender, EventArgs e)
+        {
+            controller.WriteXML(this.dataGrabber.GetStockInfoList());
+        }
+    }
 }

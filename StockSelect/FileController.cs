@@ -19,7 +19,8 @@ namespace StockSelect
 
         public void WriteXML(object o)
         {
-    
+
+            this.CreateFolder();
             System.Xml.Serialization.XmlSerializer writer =
                 new System.Xml.Serialization.XmlSerializer(o.GetType());
 

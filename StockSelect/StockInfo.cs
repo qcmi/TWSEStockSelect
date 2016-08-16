@@ -68,7 +68,10 @@ namespace StockSelect
 
 	public class StockView
 	{
-		[DisplayName("股票名稱")]
+        [DisplayName("#")]
+        public int FlowNo { get; set; }
+
+        [DisplayName("股票名稱")]
 		public string Name { get; set; }
 
 		[DisplayName("股票代碼")]

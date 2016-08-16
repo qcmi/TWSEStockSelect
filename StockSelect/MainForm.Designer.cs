@@ -37,6 +37,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.buttonSelectStocks = new System.Windows.Forms.Button();
             this.groupBoxDownload = new System.Windows.Forms.GroupBox();
+            this.buttonSaveXml = new System.Windows.Forms.Button();
             this.panelProgress = new System.Windows.Forms.Panel();
             this.labelProgress = new System.Windows.Forms.Label();
             this.progressBarDownload = new System.Windows.Forms.ProgressBar();
@@ -53,7 +54,6 @@
             this.dataGridViewDay2 = new System.Windows.Forms.DataGridView();
             this.groupBoxDay3 = new System.Windows.Forms.GroupBox();
             this.dataGridViewDay3 = new System.Windows.Forms.DataGridView();
-            this.buttonSaveXml = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -110,8 +110,8 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.splitContainer2);
-            this.splitContainer1.Size = new System.Drawing.Size(1126, 659);
-            this.splitContainer1.SplitterDistance = 292;
+            this.splitContainer1.Size = new System.Drawing.Size(1192, 659);
+            this.splitContainer1.SplitterDistance = 295;
             this.splitContainer1.TabIndex = 2;
             // 
             // groupBoxAnalys
@@ -191,6 +191,16 @@
             this.groupBoxDownload.TabIndex = 6;
             this.groupBoxDownload.TabStop = false;
             this.groupBoxDownload.Text = "下載資料";
+            // 
+            // buttonSaveXml
+            // 
+            this.buttonSaveXml.Location = new System.Drawing.Point(136, 122);
+            this.buttonSaveXml.Name = "buttonSaveXml";
+            this.buttonSaveXml.Size = new System.Drawing.Size(95, 33);
+            this.buttonSaveXml.TabIndex = 8;
+            this.buttonSaveXml.Text = "存成Xml";
+            this.buttonSaveXml.UseVisualStyleBackColor = true;
+            this.buttonSaveXml.Click += new System.EventHandler(this.buttonSaveXml_Click);
             // 
             // panelProgress
             // 
@@ -279,8 +289,8 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer3);
-            this.splitContainer2.Size = new System.Drawing.Size(830, 659);
-            this.splitContainer2.SplitterDistance = 260;
+            this.splitContainer2.Size = new System.Drawing.Size(893, 659);
+            this.splitContainer2.SplitterDistance = 295;
             this.splitContainer2.TabIndex = 1;
             // 
             // groupBoxDay1
@@ -291,7 +301,7 @@
             this.groupBoxDay1.ForeColor = System.Drawing.Color.Blue;
             this.groupBoxDay1.Location = new System.Drawing.Point(0, 0);
             this.groupBoxDay1.Name = "groupBoxDay1";
-            this.groupBoxDay1.Size = new System.Drawing.Size(260, 659);
+            this.groupBoxDay1.Size = new System.Drawing.Size(295, 659);
             this.groupBoxDay1.TabIndex = 1;
             this.groupBoxDay1.TabStop = false;
             this.groupBoxDay1.Text = "第一天挑選";
@@ -300,13 +310,14 @@
             // 
             this.dataGridViewDay1.AllowUserToAddRows = false;
             this.dataGridViewDay1.AllowUserToDeleteRows = false;
+            this.dataGridViewDay1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
             this.dataGridViewDay1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridViewDay1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridViewDay1.Location = new System.Drawing.Point(3, 23);
             this.dataGridViewDay1.Name = "dataGridViewDay1";
             this.dataGridViewDay1.ReadOnly = true;
             this.dataGridViewDay1.RowTemplate.Height = 24;
-            this.dataGridViewDay1.Size = new System.Drawing.Size(254, 633);
+            this.dataGridViewDay1.Size = new System.Drawing.Size(289, 633);
             this.dataGridViewDay1.TabIndex = 0;
             // 
             // splitContainer3
@@ -322,8 +333,8 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.groupBoxDay3);
-            this.splitContainer3.Size = new System.Drawing.Size(566, 659);
-            this.splitContainer3.SplitterDistance = 280;
+            this.splitContainer3.Size = new System.Drawing.Size(594, 659);
+            this.splitContainer3.SplitterDistance = 290;
             this.splitContainer3.TabIndex = 0;
             // 
             // groupBoxDay2
@@ -334,7 +345,7 @@
             this.groupBoxDay2.ForeColor = System.Drawing.Color.Blue;
             this.groupBoxDay2.Location = new System.Drawing.Point(0, 0);
             this.groupBoxDay2.Name = "groupBoxDay2";
-            this.groupBoxDay2.Size = new System.Drawing.Size(280, 659);
+            this.groupBoxDay2.Size = new System.Drawing.Size(290, 659);
             this.groupBoxDay2.TabIndex = 2;
             this.groupBoxDay2.TabStop = false;
             this.groupBoxDay2.Text = "第二天挑選";
@@ -349,7 +360,7 @@
             this.dataGridViewDay2.Name = "dataGridViewDay2";
             this.dataGridViewDay2.ReadOnly = true;
             this.dataGridViewDay2.RowTemplate.Height = 24;
-            this.dataGridViewDay2.Size = new System.Drawing.Size(274, 633);
+            this.dataGridViewDay2.Size = new System.Drawing.Size(284, 633);
             this.dataGridViewDay2.TabIndex = 0;
             // 
             // groupBoxDay3
@@ -360,7 +371,7 @@
             this.groupBoxDay3.ForeColor = System.Drawing.Color.Blue;
             this.groupBoxDay3.Location = new System.Drawing.Point(0, 0);
             this.groupBoxDay3.Name = "groupBoxDay3";
-            this.groupBoxDay3.Size = new System.Drawing.Size(282, 659);
+            this.groupBoxDay3.Size = new System.Drawing.Size(300, 659);
             this.groupBoxDay3.TabIndex = 2;
             this.groupBoxDay3.TabStop = false;
             this.groupBoxDay3.Text = "第三天挑選";
@@ -375,24 +386,14 @@
             this.dataGridViewDay3.Name = "dataGridViewDay3";
             this.dataGridViewDay3.ReadOnly = true;
             this.dataGridViewDay3.RowTemplate.Height = 24;
-            this.dataGridViewDay3.Size = new System.Drawing.Size(276, 633);
+            this.dataGridViewDay3.Size = new System.Drawing.Size(294, 633);
             this.dataGridViewDay3.TabIndex = 0;
-            // 
-            // buttonSaveXml
-            // 
-            this.buttonSaveXml.Location = new System.Drawing.Point(136, 122);
-            this.buttonSaveXml.Name = "buttonSaveXml";
-            this.buttonSaveXml.Size = new System.Drawing.Size(95, 33);
-            this.buttonSaveXml.TabIndex = 8;
-            this.buttonSaveXml.Text = "存成Xml";
-            this.buttonSaveXml.UseVisualStyleBackColor = true;
-            this.buttonSaveXml.Click += new System.EventHandler(this.buttonSaveXml_Click);
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1126, 659);
+            this.ClientSize = new System.Drawing.Size(1192, 659);
             this.Controls.Add(this.splitContainer1);
             this.Name = "MainForm";
             this.Text = "StockSelect";

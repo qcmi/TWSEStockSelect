@@ -98,6 +98,8 @@ namespace StockSelect
 			this.day1_list.Clear();
 			double leverage = (double)this.numericUpDownLeverage.Value;
 			List<StockInfo> info_list = this.dataGrabber.GetStockInfoList();
+
+            int flowNo = 1;
 			foreach (var info in info_list)
 			{
 				if (info.GetPrice.Count > 0)
@@ -105,9 +107,11 @@ namespace StockSelect
 					if (info.IsLastPriceMax() && info.LastVolume() > info.AvgVolume() * leverage)
 					{
 						StockView s = new StockView();
+                        s.FlowNo = flowNo;
 						s.Code = info.Code;
 						s.Name = info.Name;
 						this.day1_list.Add(s);
+                        flowNo++;
 					}
 				}				
 			}

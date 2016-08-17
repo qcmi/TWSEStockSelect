@@ -26,11 +26,44 @@ namespace StockSelect
 			return avgClose;  
 		}
 
+        private List<Price> getPriceListFromDateByBackdays(DateTime date, int backdays)
+        {
+            List<Price> p_list = (from p in price_list
+                                  where p.Date.Date <= date.Date
+                                  orderby p.Date descending
+                                  select p).Take(backdays).ToList();
+
+            return p_list;
+        }
+
+        public double AvgClose(DateTime date, int backdays)
+        {
+
+            List<Price> p_list = this.getPriceListFromDateByBackdays(date, backdays);
+
+            double avgClose = (from p in p_list
+                               select p.Close).Average();
+
+            return avgClose;
+        }
+
 		public double LastPrice()
 		{
 			double lastPrice = price_list.OrderByDescending(t => t.Date).First().Close;
 			return lastPrice;
 		}
+
+        public double Price(DateTime date)
+        {
+            double? datePrice = (from p in price_list
+                                where p.Date == date.Date
+                                select p.Close).FirstOrDefault();
+
+            if (datePrice == null)
+                return 0;
+            else
+                return (double)datePrice;
+        }
 
 		public bool IsLastPriceMax()
 		{
@@ -41,7 +74,18 @@ namespace StockSelect
 				return false;
 		}
 
-		public double AvgVolume()
+        public bool IsPriceMaxFromDateByBackdays(DateTime date, int backdays)
+        {
+            List<Price> p_list = this.getPriceListFromDateByBackdays(date, backdays);
+
+            double maxPrice = p_list.Max(t => t.Close);
+            if (this.Price(date) >= maxPrice)
+                return true;
+            else
+                return false;
+        }
+
+        public double AvgVolume()
 		{
 			double avgVolume = (from p in price_list
 								select p.Volume).Average();
@@ -49,11 +93,46 @@ namespace StockSelect
 			return avgVolume;
 		}
 
-		public double LastVolume()
+        public double AvgVolume(DateTime date, int backdays)
+        {
+
+            List<Price> p_list = this.getPriceListFromDateByBackdays(date, backdays);
+
+            double avgVolume = (from p in p_list
+                               select p.Volume).Average();
+
+            return avgVolume;
+        }
+
+        public double LastVolume()
 		{
 			double lastVolume = price_list.OrderByDescending(t => t.Date).First().Volume;
 			return lastVolume;
 		}
+
+        public double Volume(DateTime date)
+        {
+            double? dateVolume = (from p in price_list
+                                 where p.Date == date.Date
+                                 select p.Volume).FirstOrDefault();
+
+            if (dateVolume == null)
+                return 0;
+            else
+                return (double)dateVolume;
+        }
+
+        public bool DataExist(DateTime date)
+        {
+            Price p = (from pp in price_list
+                       where pp.Date.Date == date.Date
+                       select pp).FirstOrDefault();
+
+            if (p == null)
+                return false;
+            else
+                return true;
+        }
 	}
 
 	public class Price

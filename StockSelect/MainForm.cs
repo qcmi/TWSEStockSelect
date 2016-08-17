@@ -21,17 +21,20 @@ namespace StockSelect
 		{
 			InitializeComponent();
 			this.panelProgress.Visible = false;
-            if (controller.CheckFileExist())
-            {
-                this.dataGrabber.SetStockInfoList(controller.ReadXML<List<StockInfo>>());
-            }
 		}
 
 		private void buttonDownload_Click(object sender, EventArgs e)
 		{
-			DateTime endDate = this.dateTimePickerQueryDate.Value;
+			DateTime startDate = this.dateTimePickerDownloadDateFrom.Value;
+            DateTime endDate = this.dateTimePickerDownloadDateTo.Value;
 
-			if (endDate.Date == DateTime.Now.Date && DateTime.Now.Hour < 14)
+            // Difference in days, hours, and minutes.
+            TimeSpan ts = endDate - startDate;
+
+            // Difference in days.
+            int backdays = ts.Days;
+
+            if (endDate.Date == DateTime.Now.Date && DateTime.Now.Hour < 14)
 			{
 				MessageBox.Show("今天資料請下午兩點後再下載!", "請注意", 
 					MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -41,8 +44,6 @@ namespace StockSelect
 				this.setProgressPanelVisible(true);
 				this.dataGrabber.ClearData();
 
-
-				int backdays = (int)this.numericUpDownBackDays.Value;
 				dataGrabber.DownloadDataRange(endDate, backdays, this);
 
 				Thread t = new Thread(() =>
@@ -96,15 +97,19 @@ namespace StockSelect
 		private void Day1Analys()
 		{
 			this.day1_list.Clear();
-			double leverage = (double)this.numericUpDownLeverage.Value;
+            DateTime date = this.dateTimePickerAnalysisDate.Value;
+            int backdays = (int)this.numericUpDownAnalysisBackdays.Value;
+            double leverage = (double)this.numericUpDownLeverage.Value;
 			List<StockInfo> info_list = this.dataGrabber.GetStockInfoList();
 
             int flowNo = 1;
 			foreach (var info in info_list)
 			{
-				if (info.GetPrice.Count > 0)
+				if (info.GetPrice.Count > (backdays - 2) && info.DataExist(date))
 				{
-					if (info.IsLastPriceMax() && info.LastVolume() > info.AvgVolume() * leverage)
+                    //if (info.IsLastPriceMax() && info.LastVolume() > info.AvgVolume() * leverage)
+                    if (info.IsPriceMaxFromDateByBackdays(date,backdays) 
+                        && info.Volume(date) > info.AvgVolume(date,backdays) * leverage)
 					{
 						StockView s = new StockView();
                         s.FlowNo = flowNo;
@@ -125,6 +130,23 @@ namespace StockSelect
         private void buttonSaveXml_Click(object sender, EventArgs e)
         {
             controller.WriteXML(this.dataGrabber.GetStockInfoList());
+            MessageBox.Show("資料儲存完成!", "資料儲存完成!",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void buttonLoadXml_Click(object sender, EventArgs e)
+        {
+            if (controller.CheckFileExist())
+            {
+                this.dataGrabber.SetStockInfoList(controller.ReadXML<List<StockInfo>>());
+                MessageBox.Show("資料讀取完成!", "資料讀取完成!",
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            else
+            {
+                MessageBox.Show("資料檔案不存在!", "資料檔案不存在!",
+                        MessageBoxButtons.OK, MessageBoxIcon.Stop);
+            }
         }
     }
 }

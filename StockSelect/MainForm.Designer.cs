@@ -29,7 +29,7 @@
 		private void InitializeComponent()
 		{
             this.buttonDownload = new System.Windows.Forms.Button();
-            this.dateTimePickerQueryDate = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePickerDownloadDateFrom = new System.Windows.Forms.DateTimePicker();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.groupBoxAnalys = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
@@ -42,10 +42,7 @@
             this.labelProgress = new System.Windows.Forms.Label();
             this.progressBarDownload = new System.Windows.Forms.ProgressBar();
             this.label3 = new System.Windows.Forms.Label();
-            this.labelDate = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.numericUpDownBackDays = new System.Windows.Forms.NumericUpDown();
-            this.label1 = new System.Windows.Forms.Label();
+            this.labelDateFrom = new System.Windows.Forms.Label();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.groupBoxDay1 = new System.Windows.Forms.GroupBox();
             this.dataGridViewDay1 = new System.Windows.Forms.DataGridView();
@@ -54,6 +51,16 @@
             this.dataGridViewDay2 = new System.Windows.Forms.DataGridView();
             this.groupBoxDay3 = new System.Windows.Forms.GroupBox();
             this.dataGridViewDay3 = new System.Windows.Forms.DataGridView();
+            this.label6 = new System.Windows.Forms.Label();
+            this.numericUpDownAnalysisBackdays = new System.Windows.Forms.NumericUpDown();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.dateTimePickerAnalysisDate = new System.Windows.Forms.DateTimePicker();
+            this.buttonLoadXml = new System.Windows.Forms.Button();
+            this.groupBoxXml = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.dateTimePickerDownloadDateTo = new System.Windows.Forms.DateTimePicker();
+            this.groupBoxDownloadDate = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -62,7 +69,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLeverage)).BeginInit();
             this.groupBoxDownload.SuspendLayout();
             this.panelProgress.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBackDays)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
@@ -77,11 +83,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDay2)).BeginInit();
             this.groupBoxDay3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDay3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAnalysisBackdays)).BeginInit();
+            this.groupBoxXml.SuspendLayout();
+            this.groupBoxDownloadDate.SuspendLayout();
             this.SuspendLayout();
             // 
             // buttonDownload
             // 
-            this.buttonDownload.Location = new System.Drawing.Point(15, 122);
+            this.buttonDownload.Location = new System.Drawing.Point(73, 139);
             this.buttonDownload.Name = "buttonDownload";
             this.buttonDownload.Size = new System.Drawing.Size(95, 33);
             this.buttonDownload.TabIndex = 0;
@@ -89,12 +98,12 @@
             this.buttonDownload.UseVisualStyleBackColor = true;
             this.buttonDownload.Click += new System.EventHandler(this.buttonDownload_Click);
             // 
-            // dateTimePickerQueryDate
+            // dateTimePickerDownloadDateFrom
             // 
-            this.dateTimePickerQueryDate.Location = new System.Drawing.Point(30, 50);
-            this.dateTimePickerQueryDate.Name = "dateTimePickerQueryDate";
-            this.dateTimePickerQueryDate.Size = new System.Drawing.Size(161, 27);
-            this.dateTimePickerQueryDate.TabIndex = 1;
+            this.dateTimePickerDownloadDateFrom.Location = new System.Drawing.Point(43, 32);
+            this.dateTimePickerDownloadDateFrom.Name = "dateTimePickerDownloadDateFrom";
+            this.dateTimePickerDownloadDateFrom.Size = new System.Drawing.Size(161, 27);
+            this.dateTimePickerDownloadDateFrom.TabIndex = 1;
             // 
             // splitContainer1
             // 
@@ -104,6 +113,7 @@
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.Controls.Add(this.groupBoxXml);
             this.splitContainer1.Panel1.Controls.Add(this.groupBoxAnalys);
             this.splitContainer1.Panel1.Controls.Add(this.groupBoxDownload);
             // 
@@ -116,14 +126,19 @@
             // 
             // groupBoxAnalys
             // 
+            this.groupBoxAnalys.Controls.Add(this.label8);
+            this.groupBoxAnalys.Controls.Add(this.dateTimePickerAnalysisDate);
+            this.groupBoxAnalys.Controls.Add(this.label6);
+            this.groupBoxAnalys.Controls.Add(this.numericUpDownAnalysisBackdays);
+            this.groupBoxAnalys.Controls.Add(this.label7);
             this.groupBoxAnalys.Controls.Add(this.label4);
             this.groupBoxAnalys.Controls.Add(this.numericUpDownLeverage);
             this.groupBoxAnalys.Controls.Add(this.label5);
             this.groupBoxAnalys.Controls.Add(this.buttonSelectStocks);
             this.groupBoxAnalys.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxAnalys.Location = new System.Drawing.Point(22, 276);
+            this.groupBoxAnalys.Location = new System.Drawing.Point(22, 376);
             this.groupBoxAnalys.Name = "groupBoxAnalys";
-            this.groupBoxAnalys.Size = new System.Drawing.Size(248, 185);
+            this.groupBoxAnalys.Size = new System.Drawing.Size(249, 230);
             this.groupBoxAnalys.TabIndex = 7;
             this.groupBoxAnalys.TabStop = false;
             this.groupBoxAnalys.Text = "分析";
@@ -131,7 +146,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(216, 36);
+            this.label4.Location = new System.Drawing.Point(216, 139);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(26, 19);
             this.label4.TabIndex = 8;
@@ -145,7 +160,7 @@
             0,
             0,
             65536});
-            this.numericUpDownLeverage.Location = new System.Drawing.Point(161, 34);
+            this.numericUpDownLeverage.Location = new System.Drawing.Point(161, 137);
             this.numericUpDownLeverage.Name = "numericUpDownLeverage";
             this.numericUpDownLeverage.Size = new System.Drawing.Size(49, 27);
             this.numericUpDownLeverage.TabIndex = 7;
@@ -158,7 +173,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(11, 36);
+            this.label5.Location = new System.Drawing.Point(11, 139);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(144, 19);
             this.label5.TabIndex = 6;
@@ -166,7 +181,7 @@
             // 
             // buttonSelectStocks
             // 
-            this.buttonSelectStocks.Location = new System.Drawing.Point(65, 118);
+            this.buttonSelectStocks.Location = new System.Drawing.Point(77, 183);
             this.buttonSelectStocks.Name = "buttonSelectStocks";
             this.buttonSelectStocks.Size = new System.Drawing.Size(91, 31);
             this.buttonSelectStocks.TabIndex = 0;
@@ -176,29 +191,24 @@
             // 
             // groupBoxDownload
             // 
-            this.groupBoxDownload.Controls.Add(this.buttonSaveXml);
+            this.groupBoxDownload.Controls.Add(this.groupBoxDownloadDate);
             this.groupBoxDownload.Controls.Add(this.panelProgress);
-            this.groupBoxDownload.Controls.Add(this.labelDate);
-            this.groupBoxDownload.Controls.Add(this.label2);
             this.groupBoxDownload.Controls.Add(this.buttonDownload);
-            this.groupBoxDownload.Controls.Add(this.numericUpDownBackDays);
-            this.groupBoxDownload.Controls.Add(this.dateTimePickerQueryDate);
-            this.groupBoxDownload.Controls.Add(this.label1);
             this.groupBoxDownload.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.groupBoxDownload.Location = new System.Drawing.Point(22, 21);
             this.groupBoxDownload.Name = "groupBoxDownload";
-            this.groupBoxDownload.Size = new System.Drawing.Size(249, 238);
+            this.groupBoxDownload.Size = new System.Drawing.Size(249, 254);
             this.groupBoxDownload.TabIndex = 6;
             this.groupBoxDownload.TabStop = false;
             this.groupBoxDownload.Text = "下載資料";
             // 
             // buttonSaveXml
             // 
-            this.buttonSaveXml.Location = new System.Drawing.Point(136, 122);
+            this.buttonSaveXml.Location = new System.Drawing.Point(10, 26);
             this.buttonSaveXml.Name = "buttonSaveXml";
             this.buttonSaveXml.Size = new System.Drawing.Size(95, 33);
             this.buttonSaveXml.TabIndex = 8;
-            this.buttonSaveXml.Text = "存成Xml";
+            this.buttonSaveXml.Text = "儲存資料";
             this.buttonSaveXml.UseVisualStyleBackColor = true;
             this.buttonSaveXml.Click += new System.EventHandler(this.buttonSaveXml_Click);
             // 
@@ -207,7 +217,7 @@
             this.panelProgress.Controls.Add(this.labelProgress);
             this.panelProgress.Controls.Add(this.progressBarDownload);
             this.panelProgress.Controls.Add(this.label3);
-            this.panelProgress.Location = new System.Drawing.Point(6, 172);
+            this.panelProgress.Location = new System.Drawing.Point(6, 192);
             this.panelProgress.Name = "panelProgress";
             this.panelProgress.Size = new System.Drawing.Size(237, 56);
             this.panelProgress.TabIndex = 7;
@@ -231,50 +241,20 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(4, 8);
+            this.label3.Location = new System.Drawing.Point(6, 8);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(77, 19);
             this.label3.TabIndex = 7;
             this.label3.Text = "下載進度";
             // 
-            // labelDate
+            // labelDateFrom
             // 
-            this.labelDate.AutoSize = true;
-            this.labelDate.Location = new System.Drawing.Point(29, 28);
-            this.labelDate.Name = "labelDate";
-            this.labelDate.Size = new System.Drawing.Size(77, 19);
-            this.labelDate.TabIndex = 2;
-            this.labelDate.Text = "查詢日期";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(132, 91);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(60, 19);
-            this.label2.TabIndex = 5;
-            this.label2.Text = "交易日";
-            // 
-            // numericUpDownBackDays
-            // 
-            this.numericUpDownBackDays.Location = new System.Drawing.Point(77, 89);
-            this.numericUpDownBackDays.Name = "numericUpDownBackDays";
-            this.numericUpDownBackDays.Size = new System.Drawing.Size(49, 27);
-            this.numericUpDownBackDays.TabIndex = 4;
-            this.numericUpDownBackDays.Value = new decimal(new int[] {
-            30,
-            0,
-            0,
-            0});
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(11, 91);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 19);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "1. 往前";
+            this.labelDateFrom.AutoSize = true;
+            this.labelDateFrom.Location = new System.Drawing.Point(11, 38);
+            this.labelDateFrom.Name = "labelDateFrom";
+            this.labelDateFrom.Size = new System.Drawing.Size(26, 19);
+            this.labelDateFrom.TabIndex = 2;
+            this.labelDateFrom.Text = "從";
             // 
             // splitContainer2
             // 
@@ -389,6 +369,104 @@
             this.dataGridViewDay3.Size = new System.Drawing.Size(294, 633);
             this.dataGridViewDay3.TabIndex = 0;
             // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(132, 99);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(60, 19);
+            this.label6.TabIndex = 11;
+            this.label6.Text = "交易日";
+            // 
+            // numericUpDownAnalysisBackdays
+            // 
+            this.numericUpDownAnalysisBackdays.Location = new System.Drawing.Point(77, 97);
+            this.numericUpDownAnalysisBackdays.Name = "numericUpDownAnalysisBackdays";
+            this.numericUpDownAnalysisBackdays.Size = new System.Drawing.Size(49, 27);
+            this.numericUpDownAnalysisBackdays.TabIndex = 10;
+            this.numericUpDownAnalysisBackdays.Value = new decimal(new int[] {
+            30,
+            0,
+            0,
+            0});
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(11, 99);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(59, 19);
+            this.label7.TabIndex = 9;
+            this.label7.Text = "1. 往前";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(10, 34);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(77, 19);
+            this.label8.TabIndex = 13;
+            this.label8.Text = "查詢日期";
+            // 
+            // dateTimePickerAnalysisDate
+            // 
+            this.dateTimePickerAnalysisDate.Location = new System.Drawing.Point(11, 56);
+            this.dateTimePickerAnalysisDate.Name = "dateTimePickerAnalysisDate";
+            this.dateTimePickerAnalysisDate.Size = new System.Drawing.Size(161, 27);
+            this.dateTimePickerAnalysisDate.TabIndex = 12;
+            // 
+            // buttonLoadXml
+            // 
+            this.buttonLoadXml.Location = new System.Drawing.Point(136, 26);
+            this.buttonLoadXml.Name = "buttonLoadXml";
+            this.buttonLoadXml.Size = new System.Drawing.Size(95, 33);
+            this.buttonLoadXml.TabIndex = 9;
+            this.buttonLoadXml.Text = "讀取資料";
+            this.buttonLoadXml.UseVisualStyleBackColor = true;
+            this.buttonLoadXml.Click += new System.EventHandler(this.buttonLoadXml_Click);
+            // 
+            // groupBoxXml
+            // 
+            this.groupBoxXml.Controls.Add(this.buttonLoadXml);
+            this.groupBoxXml.Controls.Add(this.buttonSaveXml);
+            this.groupBoxXml.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxXml.Location = new System.Drawing.Point(22, 281);
+            this.groupBoxXml.Name = "groupBoxXml";
+            this.groupBoxXml.Size = new System.Drawing.Size(249, 80);
+            this.groupBoxXml.TabIndex = 8;
+            this.groupBoxXml.TabStop = false;
+            this.groupBoxXml.Text = "本機資料";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(11, 71);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(26, 19);
+            this.label9.TabIndex = 9;
+            this.label9.Text = "到";
+            // 
+            // dateTimePickerDownloadDateTo
+            // 
+            this.dateTimePickerDownloadDateTo.Location = new System.Drawing.Point(43, 71);
+            this.dateTimePickerDownloadDateTo.Name = "dateTimePickerDownloadDateTo";
+            this.dateTimePickerDownloadDateTo.Size = new System.Drawing.Size(161, 27);
+            this.dateTimePickerDownloadDateTo.TabIndex = 8;
+            // 
+            // groupBoxDownloadDate
+            // 
+            this.groupBoxDownloadDate.Controls.Add(this.dateTimePickerDownloadDateTo);
+            this.groupBoxDownloadDate.Controls.Add(this.label9);
+            this.groupBoxDownloadDate.Controls.Add(this.dateTimePickerDownloadDateFrom);
+            this.groupBoxDownloadDate.Controls.Add(this.labelDateFrom);
+            this.groupBoxDownloadDate.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxDownloadDate.Location = new System.Drawing.Point(6, 26);
+            this.groupBoxDownloadDate.Name = "groupBoxDownloadDate";
+            this.groupBoxDownloadDate.Size = new System.Drawing.Size(231, 107);
+            this.groupBoxDownloadDate.TabIndex = 10;
+            this.groupBoxDownloadDate.TabStop = false;
+            this.groupBoxDownloadDate.Text = "資料日期";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -405,10 +483,8 @@
             this.groupBoxAnalys.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDownLeverage)).EndInit();
             this.groupBoxDownload.ResumeLayout(false);
-            this.groupBoxDownload.PerformLayout();
             this.panelProgress.ResumeLayout(false);
             this.panelProgress.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownBackDays)).EndInit();
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
@@ -423,6 +499,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDay2)).EndInit();
             this.groupBoxDay3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDay3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownAnalysisBackdays)).EndInit();
+            this.groupBoxXml.ResumeLayout(false);
+            this.groupBoxDownloadDate.ResumeLayout(false);
+            this.groupBoxDownloadDate.PerformLayout();
             this.ResumeLayout(false);
 
 		}
@@ -430,12 +510,9 @@
 		#endregion
 
 		private System.Windows.Forms.Button buttonDownload;
-		private System.Windows.Forms.DateTimePicker dateTimePickerQueryDate;
+		private System.Windows.Forms.DateTimePicker dateTimePickerDownloadDateFrom;
 		private System.Windows.Forms.SplitContainer splitContainer1;
-		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.NumericUpDown numericUpDownBackDays;
-		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.Label labelDate;
+		private System.Windows.Forms.Label labelDateFrom;
 		private System.Windows.Forms.GroupBox groupBoxDownload;
 		private System.Windows.Forms.Label label3;
 		private System.Windows.Forms.ProgressBar progressBarDownload;
@@ -455,6 +532,16 @@
 		private System.Windows.Forms.NumericUpDown numericUpDownLeverage;
 		private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button buttonSaveXml;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.DateTimePicker dateTimePickerAnalysisDate;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.NumericUpDown numericUpDownAnalysisBackdays;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button buttonLoadXml;
+        private System.Windows.Forms.GroupBox groupBoxXml;
+        private System.Windows.Forms.GroupBox groupBoxDownloadDate;
+        private System.Windows.Forms.DateTimePicker dateTimePickerDownloadDateTo;
+        private System.Windows.Forms.Label label9;
     }
 }
 

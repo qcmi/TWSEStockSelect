@@ -38,6 +38,7 @@ namespace StockSelect
 
         public void SetStockInfoList(List<StockInfo> list)
         {
+            this.data_list.Clear();
             this.data_list = list;
         }
 

@@ -26,7 +26,7 @@ namespace StockSelect
 			return avgClose;  
 		}
 
-        private List<Price> getPriceListFromDateByBackdays(DateTime date, int backdays)
+        public List<Price> GetPriceListFromDateByBackdays(DateTime date, int backdays)
         {
             List<Price> p_list = (from p in price_list
                                   where p.Date.Date <= date.Date
@@ -39,7 +39,7 @@ namespace StockSelect
         public double AvgClose(DateTime date, int backdays)
         {
 
-            List<Price> p_list = this.getPriceListFromDateByBackdays(date, backdays);
+            List<Price> p_list = this.GetPriceListFromDateByBackdays(date, backdays);
 
             double avgClose = (from p in p_list
                                select p.Close).Average();
@@ -76,7 +76,7 @@ namespace StockSelect
 
         public bool IsPriceMaxFromDateByBackdays(DateTime date, int backdays)
         {
-            List<Price> p_list = this.getPriceListFromDateByBackdays(date, backdays);
+            List<Price> p_list = this.GetPriceListFromDateByBackdays(date, backdays);
 
             double maxPrice = p_list.Max(t => t.Close);
             if (this.Price(date) >= maxPrice)
@@ -96,7 +96,7 @@ namespace StockSelect
         public double AvgVolume(DateTime date, int backdays)
         {
 
-            List<Price> p_list = this.getPriceListFromDateByBackdays(date, backdays);
+            List<Price> p_list = this.GetPriceListFromDateByBackdays(date, backdays);
 
             double avgVolume = (from p in p_list
                                select p.Volume).Average();

@@ -42,6 +42,27 @@ namespace StockSelect
             this.data_list = list;
         }
 
+        public List<DateTime> GetNoDataList(DateTime endDate, int backdays)
+        {
+            List<DateTime> noData_list = new List<DateTime>();
+
+            DateTime date = endDate;
+            int daycount = 0;
+            while (daycount < backdays)
+            {
+                if ((int)date.DayOfWeek != 6 && (int)date.DayOfWeek != 7)
+                {
+                    if (!data_list[0].DataExist(date))
+                    {
+                        noData_list.Add(date);
+                    }
+                    daycount++;
+                }
+                date = date.AddDays(-1);
+            }
+            return noData_list;
+        }
+
 		public void DownloadDataRange(DateTime EndDate, int backDays, MainForm form)
 		{
 			int count = 0;

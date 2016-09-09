@@ -55,12 +55,12 @@
             this.progressBarDownload = new System.Windows.Forms.ProgressBar();
             this.label3 = new System.Windows.Forms.Label();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.groupBoxDay1 = new System.Windows.Forms.GroupBox();
-            this.dataGridViewDay1 = new System.Windows.Forms.DataGridView();
+            this.groupBoxTWSE = new System.Windows.Forms.GroupBox();
+            this.dataGridViewTWSE = new System.Windows.Forms.DataGridView();
             this.splitContainer4 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.groupBoxDay2 = new System.Windows.Forms.GroupBox();
-            this.dataGridViewDay2 = new System.Windows.Forms.DataGridView();
+            this.groupBoxOTC = new System.Windows.Forms.GroupBox();
+            this.dataGridViewOTC = new System.Windows.Forms.DataGridView();
             this.groupBoxDay3 = new System.Windows.Forms.GroupBox();
             this.dataGridViewDay3 = new System.Windows.Forms.DataGridView();
             this.groupBoxNoData = new System.Windows.Forms.GroupBox();
@@ -80,8 +80,8 @@
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
-            this.groupBoxDay1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDay1)).BeginInit();
+            this.groupBoxTWSE.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTWSE)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).BeginInit();
             this.splitContainer4.Panel1.SuspendLayout();
             this.splitContainer4.Panel2.SuspendLayout();
@@ -90,8 +90,8 @@
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
-            this.groupBoxDay2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDay2)).BeginInit();
+            this.groupBoxOTC.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOTC)).BeginInit();
             this.groupBoxDay3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDay3)).BeginInit();
             this.groupBoxNoData.SuspendLayout();
@@ -382,41 +382,41 @@
             // 
             // splitContainer2.Panel1
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.groupBoxDay1);
+            this.splitContainer2.Panel1.Controls.Add(this.groupBoxTWSE);
             // 
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer4);
             this.splitContainer2.Size = new System.Drawing.Size(1062, 659);
-            this.splitContainer2.SplitterDistance = 264;
+            this.splitContainer2.SplitterDistance = 277;
             this.splitContainer2.TabIndex = 1;
             // 
-            // groupBoxDay1
+            // groupBoxTWSE
             // 
-            this.groupBoxDay1.Controls.Add(this.dataGridViewDay1);
-            this.groupBoxDay1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBoxDay1.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxDay1.ForeColor = System.Drawing.Color.Blue;
-            this.groupBoxDay1.Location = new System.Drawing.Point(0, 0);
-            this.groupBoxDay1.Name = "groupBoxDay1";
-            this.groupBoxDay1.Size = new System.Drawing.Size(264, 659);
-            this.groupBoxDay1.TabIndex = 1;
-            this.groupBoxDay1.TabStop = false;
-            this.groupBoxDay1.Text = "第一天挑選";
+            this.groupBoxTWSE.Controls.Add(this.dataGridViewTWSE);
+            this.groupBoxTWSE.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBoxTWSE.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxTWSE.ForeColor = System.Drawing.Color.Blue;
+            this.groupBoxTWSE.Location = new System.Drawing.Point(0, 0);
+            this.groupBoxTWSE.Name = "groupBoxTWSE";
+            this.groupBoxTWSE.Size = new System.Drawing.Size(277, 659);
+            this.groupBoxTWSE.TabIndex = 1;
+            this.groupBoxTWSE.TabStop = false;
+            this.groupBoxTWSE.Text = "上市";
             // 
-            // dataGridViewDay1
+            // dataGridViewTWSE
             // 
-            this.dataGridViewDay1.AllowUserToAddRows = false;
-            this.dataGridViewDay1.AllowUserToDeleteRows = false;
-            this.dataGridViewDay1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
-            this.dataGridViewDay1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewDay1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewDay1.Location = new System.Drawing.Point(3, 23);
-            this.dataGridViewDay1.Name = "dataGridViewDay1";
-            this.dataGridViewDay1.ReadOnly = true;
-            this.dataGridViewDay1.RowTemplate.Height = 24;
-            this.dataGridViewDay1.Size = new System.Drawing.Size(258, 633);
-            this.dataGridViewDay1.TabIndex = 0;
+            this.dataGridViewTWSE.AllowUserToAddRows = false;
+            this.dataGridViewTWSE.AllowUserToDeleteRows = false;
+            this.dataGridViewTWSE.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dataGridViewTWSE.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewTWSE.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewTWSE.Location = new System.Drawing.Point(3, 23);
+            this.dataGridViewTWSE.Name = "dataGridViewTWSE";
+            this.dataGridViewTWSE.ReadOnly = true;
+            this.dataGridViewTWSE.RowTemplate.Height = 24;
+            this.dataGridViewTWSE.Size = new System.Drawing.Size(271, 633);
+            this.dataGridViewTWSE.TabIndex = 0;
             // 
             // splitContainer4
             // 
@@ -431,8 +431,8 @@
             // splitContainer4.Panel2
             // 
             this.splitContainer4.Panel2.Controls.Add(this.groupBoxNoData);
-            this.splitContainer4.Size = new System.Drawing.Size(794, 659);
-            this.splitContainer4.SplitterDistance = 527;
+            this.splitContainer4.Size = new System.Drawing.Size(781, 659);
+            this.splitContainer4.SplitterDistance = 518;
             this.splitContainer4.TabIndex = 0;
             // 
             // splitContainer3
@@ -443,40 +443,41 @@
             // 
             // splitContainer3.Panel1
             // 
-            this.splitContainer3.Panel1.Controls.Add(this.groupBoxDay2);
+            this.splitContainer3.Panel1.Controls.Add(this.groupBoxOTC);
             // 
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.groupBoxDay3);
-            this.splitContainer3.Size = new System.Drawing.Size(527, 659);
-            this.splitContainer3.SplitterDistance = 254;
+            this.splitContainer3.Size = new System.Drawing.Size(518, 659);
+            this.splitContainer3.SplitterDistance = 277;
             this.splitContainer3.TabIndex = 0;
             // 
-            // groupBoxDay2
+            // groupBoxOTC
             // 
-            this.groupBoxDay2.Controls.Add(this.dataGridViewDay2);
-            this.groupBoxDay2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.groupBoxDay2.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.groupBoxDay2.ForeColor = System.Drawing.Color.Blue;
-            this.groupBoxDay2.Location = new System.Drawing.Point(0, 0);
-            this.groupBoxDay2.Name = "groupBoxDay2";
-            this.groupBoxDay2.Size = new System.Drawing.Size(254, 659);
-            this.groupBoxDay2.TabIndex = 2;
-            this.groupBoxDay2.TabStop = false;
-            this.groupBoxDay2.Text = "第二天挑選";
+            this.groupBoxOTC.Controls.Add(this.dataGridViewOTC);
+            this.groupBoxOTC.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.groupBoxOTC.Font = new System.Drawing.Font("Calibri", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.groupBoxOTC.ForeColor = System.Drawing.Color.Blue;
+            this.groupBoxOTC.Location = new System.Drawing.Point(0, 0);
+            this.groupBoxOTC.Name = "groupBoxOTC";
+            this.groupBoxOTC.Size = new System.Drawing.Size(277, 659);
+            this.groupBoxOTC.TabIndex = 2;
+            this.groupBoxOTC.TabStop = false;
+            this.groupBoxOTC.Text = "上櫃";
             // 
-            // dataGridViewDay2
+            // dataGridViewOTC
             // 
-            this.dataGridViewDay2.AllowUserToAddRows = false;
-            this.dataGridViewDay2.AllowUserToDeleteRows = false;
-            this.dataGridViewDay2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridViewDay2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridViewDay2.Location = new System.Drawing.Point(3, 23);
-            this.dataGridViewDay2.Name = "dataGridViewDay2";
-            this.dataGridViewDay2.ReadOnly = true;
-            this.dataGridViewDay2.RowTemplate.Height = 24;
-            this.dataGridViewDay2.Size = new System.Drawing.Size(248, 633);
-            this.dataGridViewDay2.TabIndex = 0;
+            this.dataGridViewOTC.AllowUserToAddRows = false;
+            this.dataGridViewOTC.AllowUserToDeleteRows = false;
+            this.dataGridViewOTC.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.DisplayedCells;
+            this.dataGridViewOTC.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridViewOTC.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dataGridViewOTC.Location = new System.Drawing.Point(3, 23);
+            this.dataGridViewOTC.Name = "dataGridViewOTC";
+            this.dataGridViewOTC.ReadOnly = true;
+            this.dataGridViewOTC.RowTemplate.Height = 24;
+            this.dataGridViewOTC.Size = new System.Drawing.Size(271, 633);
+            this.dataGridViewOTC.TabIndex = 0;
             // 
             // groupBoxDay3
             // 
@@ -486,7 +487,7 @@
             this.groupBoxDay3.ForeColor = System.Drawing.Color.Blue;
             this.groupBoxDay3.Location = new System.Drawing.Point(0, 0);
             this.groupBoxDay3.Name = "groupBoxDay3";
-            this.groupBoxDay3.Size = new System.Drawing.Size(269, 659);
+            this.groupBoxDay3.Size = new System.Drawing.Size(237, 659);
             this.groupBoxDay3.TabIndex = 2;
             this.groupBoxDay3.TabStop = false;
             this.groupBoxDay3.Text = "第三天挑選";
@@ -501,7 +502,7 @@
             this.dataGridViewDay3.Name = "dataGridViewDay3";
             this.dataGridViewDay3.ReadOnly = true;
             this.dataGridViewDay3.RowTemplate.Height = 24;
-            this.dataGridViewDay3.Size = new System.Drawing.Size(263, 633);
+            this.dataGridViewDay3.Size = new System.Drawing.Size(231, 633);
             this.dataGridViewDay3.TabIndex = 0;
             // 
             // groupBoxNoData
@@ -512,7 +513,7 @@
             this.groupBoxNoData.ForeColor = System.Drawing.Color.Blue;
             this.groupBoxNoData.Location = new System.Drawing.Point(0, 0);
             this.groupBoxNoData.Name = "groupBoxNoData";
-            this.groupBoxNoData.Size = new System.Drawing.Size(263, 659);
+            this.groupBoxNoData.Size = new System.Drawing.Size(259, 659);
             this.groupBoxNoData.TabIndex = 3;
             this.groupBoxNoData.TabStop = false;
             this.groupBoxNoData.Text = "可能缺少資料日期";
@@ -527,7 +528,7 @@
             this.dataGridViewNoData.Name = "dataGridViewNoData";
             this.dataGridViewNoData.ReadOnly = true;
             this.dataGridViewNoData.RowTemplate.Height = 24;
-            this.dataGridViewNoData.Size = new System.Drawing.Size(257, 633);
+            this.dataGridViewNoData.Size = new System.Drawing.Size(253, 633);
             this.dataGridViewNoData.TabIndex = 0;
             // 
             // MainForm
@@ -556,8 +557,8 @@
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
-            this.groupBoxDay1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDay1)).EndInit();
+            this.groupBoxTWSE.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewTWSE)).EndInit();
             this.splitContainer4.Panel1.ResumeLayout(false);
             this.splitContainer4.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer4)).EndInit();
@@ -566,8 +567,8 @@
             this.splitContainer3.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
-            this.groupBoxDay2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDay2)).EndInit();
+            this.groupBoxOTC.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewOTC)).EndInit();
             this.groupBoxDay3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridViewDay3)).EndInit();
             this.groupBoxNoData.ResumeLayout(false);
@@ -590,11 +591,11 @@
 		private System.Windows.Forms.GroupBox groupBoxAnalys;
 		private System.Windows.Forms.Button buttonSelectStocks;
 		private System.Windows.Forms.SplitContainer splitContainer2;
-		private System.Windows.Forms.GroupBox groupBoxDay1;
-		private System.Windows.Forms.DataGridView dataGridViewDay1;
+		private System.Windows.Forms.GroupBox groupBoxTWSE;
+		private System.Windows.Forms.DataGridView dataGridViewTWSE;
 		private System.Windows.Forms.SplitContainer splitContainer3;
-		private System.Windows.Forms.GroupBox groupBoxDay2;
-		private System.Windows.Forms.DataGridView dataGridViewDay2;
+		private System.Windows.Forms.GroupBox groupBoxOTC;
+		private System.Windows.Forms.DataGridView dataGridViewOTC;
 		private System.Windows.Forms.GroupBox groupBoxDay3;
 		private System.Windows.Forms.DataGridView dataGridViewDay3;
 		private System.Windows.Forms.Label label4;

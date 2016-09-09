@@ -12,34 +12,12 @@ using System.Threading;
 
 namespace StockSelect
 {
-	public class TWSEDataGrabber
+	public class TWSEDataGrabber : DataGrabber
 	{
-		List<StockInfo> data_list = new List<StockInfo>();
-		System.Globalization.TaiwanCalendar TC;
-		public bool IsDownloadFinish { get; set; }
-		//台灣證劵交易所
-		string url = "http://www.twse.com.tw/ch/trading/exchange/MI_INDEX/MI_INDEX.php";
-
 		public TWSEDataGrabber()
 		{
-			TC = new System.Globalization.TaiwanCalendar();
-			this.IsDownloadFinish = false;
-		}
-		
-		public void ClearData()
-		{
-			data_list.Clear();
-		}
-
-		public List<StockInfo> GetStockInfoList()
-		{
-			return this.data_list;
-		}
-
-        public void SetStockInfoList(List<StockInfo> list)
-        {
-            this.data_list.Clear();
-            this.data_list = list;
+            //台灣證劵交易所
+            this.Url = "http://www.twse.com.tw/ch/trading/exchange/MI_INDEX/MI_INDEX.php";
         }
 
         public List<DateTime> GetNoDataList(DateTime endDate, int backdays)
@@ -63,42 +41,20 @@ namespace StockSelect
             return noData_list;
         }
 
-		public void DownloadDataRange(DateTime EndDate, int backDays, MainForm form)
+		//public void DownloadDataRange(DateTime FromDate, DateTime ToDate)
+		//{
+		//	DateTime date = FromDate;
+		//	while (date.Date <= ToDate.Date)
+		//	{
+		//		DownloadData(date);
+		//		//Thread.Sleep(1000);
+		//		date = date.AddDays(1);
+		//	}
+		//}
+
+		override public void DownloadData(DateTime queryDate)
 		{
-			int count = 0;
-			DateTime date = EndDate;
-			double percent;
-
-			Thread t = new Thread(() =>
-			{
-				while (count < backDays)
-				{
-					DownloadData(date);
-					date = date.AddDays(-1);
-					count = this.data_list[0].GetPrice.Count;
-
-					percent = (double)(((double)100 * count) / backDays);
-					form.updateProgress(percent);
-				}
-				this.IsDownloadFinish = true;
-			});
-			t.Start();
-		}
-
-		public void DownloadDataRange(DateTime FromDate, DateTime ToDate)
-		{
-			DateTime date = FromDate;
-			while (date.Date <= ToDate.Date)
-			{
-				DownloadData(date);
-				//Thread.Sleep(1000);
-				date = date.AddDays(1);
-			}
-		}
-
-		public void DownloadData(DateTime queryDate)
-		{
-			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+			HttpWebRequest request = (HttpWebRequest)WebRequest.Create(Url);
 			// If required by the server, set the credentials.
 			request.Credentials = CredentialCache.DefaultCredentials;
 			// Set the Method property of the request to POST.

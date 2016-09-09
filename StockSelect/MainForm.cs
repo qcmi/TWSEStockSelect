@@ -13,8 +13,12 @@ namespace StockSelect
 {
 	public partial class MainForm : Form
 	{
-		TWSEDataGrabber dataGrabber = new TWSEDataGrabber();
-		BindingList<StockView> day1_list = new BindingList<StockView>();
+		TWSEDataGrabber twseDataGrabber = new TWSEDataGrabber();
+        OTCDataGrabber otcDataGrabber = new OTCDataGrabber();
+
+		BindingList<StockView> twse_list = new BindingList<StockView>();
+        BindingList<StockView> otc_list = new BindingList<StockView>();
+
         FileController controller = new FileController();
 
         public MainForm()
@@ -42,21 +46,33 @@ namespace StockSelect
 			else
 			{
 				this.setProgressPanelVisible(true);
-				this.dataGrabber.ClearData();
+				this.twseDataGrabber.ClearData();
+                this.otcDataGrabber.ClearData();
 
-				dataGrabber.DownloadDataRange(endDate, backdays, this);
+				this.twseDataGrabber.DownloadDataRange(endDate, backdays, this);
+                
 
 				Thread t = new Thread(() =>
 				{
-					while (!dataGrabber.IsDownloadFinish)
+					while (!twseDataGrabber.IsDownloadFinish)
 					{
 						Thread.Sleep(1000);
 					}
-					this.setProgressPanelVisible(false);
 					this.resetProgress();
-					MessageBox.Show("下載完成!", "下載完成",
+
+                    this.otcDataGrabber.DownloadDataRange(endDate, backdays, this);
+
+                    while (!this.otcDataGrabber.IsDownloadFinish)
+                    {
+                        Thread.Sleep(1000);
+                    }
+                    this.setProgressPanelVisible(false);
+                    this.resetProgress();
+
+                    MessageBox.Show("下載完成!", "下載完成",
 						MessageBoxButtons.OK, MessageBoxIcon.Information);
-					dataGrabber.IsDownloadFinish = false;
+					twseDataGrabber.IsDownloadFinish = false;
+                    otcDataGrabber.IsDownloadFinish = false;
 				});
 				t.Start();
 			}			
@@ -90,17 +106,18 @@ namespace StockSelect
 
 		private void buttonSelectStocks_Click(object sender, EventArgs e)
 		{
-			this.Day1Analys();
-			this.refreshDay1DataGridView();
+			this.StocksAnalys(ref this.twse_list, this.twseDataGrabber);
+            this.StocksAnalys(ref this.otc_list, this.otcDataGrabber);
+            this.refreshDataGridView();
 		}
 
-		private void Day1Analys()
-		{
-			this.day1_list.Clear();
+		private void StocksAnalys(ref BindingList<StockView> viewList, DataGrabber grabber)
+        {
+            viewList.Clear();
             DateTime date = this.dateTimePickerAnalysisDate.Value;
             int backdays = (int)this.numericUpDownAnalysisBackdays.Value;
             double leverage = (double)this.numericUpDownLeverage.Value;
-			List<StockInfo> info_list = this.dataGrabber.GetStockInfoList();
+			List<StockInfo> info_list = grabber.GetStockInfoList();
 
             int flowNo = 1;
 			foreach (var info in info_list)
@@ -115,21 +132,22 @@ namespace StockSelect
                         s.FlowNo = flowNo;
 						s.Code = info.Code;
 						s.Name = info.Name;
-						this.day1_list.Add(s);
+                        viewList.Add(s);
                         flowNo++;
 					}
 				}				
 			}
 		}
 
-		private void refreshDay1DataGridView()
+		private void refreshDataGridView()
 		{
-			this.dataGridViewDay1.DataSource = new BindingSource(this.day1_list, null);
+			this.dataGridViewTWSE.DataSource = new BindingSource(this.twse_list, null);
+            this.dataGridViewOTC.DataSource = new BindingSource(this.otc_list, null);
 		}
 
         private void buttonSaveXml_Click(object sender, EventArgs e)
         {
-            controller.WriteXML(this.dataGrabber.GetStockInfoList());
+            controller.WriteXML(this.twseDataGrabber.GetStockInfoList());
             MessageBox.Show("資料儲存完成!", "資料儲存完成!",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
@@ -138,7 +156,7 @@ namespace StockSelect
         {
             if (controller.CheckFileExist())
             {
-                this.dataGrabber.SetStockInfoList(controller.ReadXML<List<StockInfo>>());
+                this.twseDataGrabber.SetStockInfoList(controller.ReadXML<List<StockInfo>>());
                 MessageBox.Show("資料讀取完成!", "資料讀取完成!",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
             }

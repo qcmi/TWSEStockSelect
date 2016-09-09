@@ -194,6 +194,7 @@
             this.buttonCheckData.TabIndex = 14;
             this.buttonCheckData.Text = "檢查資料";
             this.buttonCheckData.UseVisualStyleBackColor = true;
+            this.buttonCheckData.Click += new System.EventHandler(this.buttonCheckData_Click);
             // 
             // label8
             // 

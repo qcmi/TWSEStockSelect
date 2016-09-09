@@ -20,27 +20,6 @@ namespace StockSelect
             this.Url = "http://www.twse.com.tw/ch/trading/exchange/MI_INDEX/MI_INDEX.php";
         }
 
-        public List<DateTime> GetNoDataList(DateTime endDate, int backdays)
-        {
-            List<DateTime> noData_list = new List<DateTime>();
-
-            DateTime date = endDate;
-            int daycount = 0;
-            while (daycount < backdays)
-            {
-                if ((int)date.DayOfWeek != 6 && (int)date.DayOfWeek != 7)
-                {
-                    if (!data_list[0].DataExist(date))
-                    {
-                        noData_list.Add(date);
-                    }
-                    daycount++;
-                }
-                date = date.AddDays(-1);
-            }
-            return noData_list;
-        }
-
 		//public void DownloadDataRange(DateTime FromDate, DateTime ToDate)
 		//{
 		//	DateTime date = FromDate;
@@ -113,52 +92,26 @@ namespace StockSelect
 						{
 							foreach (HtmlNode row in nameNodes[4].SelectNodes("tr"))
 							{
-								// 0 證券代號 	
-								// 1 證券名稱 	
-								// 2 成交股數 	
-								// 3 成交筆數 	
-								// 4 成交金額 	
-								// 5 開盤價 	
-								// 6 最高價 	
-								// 7 最低價 	
-								// 8 收盤價 	
-								// 9 漲跌(+/-) 	
-								// 10 漲跌價差
-								string Code = row.SelectNodes("th|td")[0].InnerText.Trim();
+                                // 0 證券代號 	
+                                // 1 證券名稱 	
+                                // 2 成交股數 	
+                                // 3 成交筆數 	
+                                // 4 成交金額 	
+                                // 5 開盤價 	
+                                // 6 最高價 	
+                                // 7 最低價 	
+                                // 8 收盤價 	
+                                // 9 漲跌(+/-) 	
+                                // 10 漲跌價差
+                                this.InsertStockPrice(queryDate,
+                                    row.SelectNodes("th|td")[0].InnerText.Trim(), // Code
+                                    row.SelectNodes("th|td")[1].InnerText.Trim(), // Name
+                                    row.SelectNodes("th|td")[5].InnerText,  // Open
+                                    row.SelectNodes("th|td")[6].InnerText,  // High
+                                    row.SelectNodes("th|td")[7].InnerText,  // Low
+                                    row.SelectNodes("th|td")[8].InnerText,  // Close
+                                    row.SelectNodes("th|td")[2].InnerText);  // Volume
 
-								StockInfo stock = (from ss in data_list
-												   where ss.Code == Code
-												   select ss).FirstOrDefault();
-
-								if (stock == null)
-								{
-									stock = new StockInfo();
-									stock.Code = Code;
-									stock.Name = row.SelectNodes("th|td")[1].InnerText.Trim();
-									this.data_list.Add(stock);
-								}
-
-								// avoid repeating 
-								Price existP = (from p in stock.GetPrice
-												where p.Date.Date == queryDate.Date
-												select p).FirstOrDefault();
-
-								int volume = Int32.Parse(row.SelectNodes("th|td")[2].InnerText.Replace(",", ""));
-								string open = row.SelectNodes("th|td")[5].InnerText;
-
-								if (existP == null && volume != 0 && open != "--")
-								{
-									Price p = new Price();
-									p.Date = queryDate.Date;
-
-									p.Volume = volume;
-									p.Open = Double.Parse(open);
-									p.High = Double.Parse(row.SelectNodes("th|td")[6].InnerText);
-									p.Low = Double.Parse(row.SelectNodes("th|td")[7].InnerText);
-									p.Close = Double.Parse(row.SelectNodes("th|td")[8].InnerText);
-
-									stock.AddPrice(p);
-								}
 							}
 						}
 					}

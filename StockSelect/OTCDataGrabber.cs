@@ -48,8 +48,8 @@ namespace StockSelect
                             // 9 成交金額(元)
                             // Console.WriteLine(row.SelectNodes("th|td")[i].InnerText);
                             this.InsertStockPrice(queryDate,
-                                                   row.SelectNodes("th|td")[0].InnerText,   // Code
-                                                   row.SelectNodes("th|td")[1].InnerText,   // Name                                                
+                                                   row.SelectNodes("th|td")[0].InnerText.Trim(),   // Code
+                                                   row.SelectNodes("th|td")[1].InnerText.Trim(),   // Name                                                
                                                    row.SelectNodes("th|td")[4].InnerText,   // Open
                                                    row.SelectNodes("th|td")[5].InnerText,   // High
                                                    row.SelectNodes("th|td")[6].InnerText,   // Low

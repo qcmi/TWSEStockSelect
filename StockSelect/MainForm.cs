@@ -166,5 +166,10 @@ namespace StockSelect
                         MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
         }
+
+        private void buttonCheckData_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

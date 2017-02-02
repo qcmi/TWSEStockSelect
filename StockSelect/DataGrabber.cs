@@ -106,7 +106,18 @@ namespace StockSelect
             {
                 while (count <= backDays)
                 {
-                    DownloadData(date);
+                    if (this.data_list.Count > 0 )
+                    {
+                        if (!this.data_list[0].DataExist(date))
+                        {
+                            DownloadData(date);
+                        }
+                    }
+                    else
+                    {
+                        DownloadData(date);
+                    }
+                                    
                     date = date.AddDays(-1);
                     count = this.data_list[0].GetPrice.Count;
 					if (backDays == 0)

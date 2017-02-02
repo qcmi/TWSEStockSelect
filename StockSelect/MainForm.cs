@@ -18,8 +18,12 @@ namespace StockSelect
 
 		BindingList<StockView> twse_list = new BindingList<StockView>();
         BindingList<StockView> otc_list = new BindingList<StockView>();
+		BindingList<NoDataInfo> noData_list = new BindingList<NoDataInfo>();
 
         FileController controller = new FileController();
+
+		string TWSExmlFileName = "TWSE_Data";
+		string OTCxmlFileName = "OTC_Data";
 
         public MainForm()
 		{
@@ -46,8 +50,8 @@ namespace StockSelect
 			else
 			{
 				this.setProgressPanelVisible(true);
-				this.twseDataGrabber.ClearData();
-                this.otcDataGrabber.ClearData();
+				//this.twseDataGrabber.ClearData();
+                //this.otcDataGrabber.ClearData();
 
 				this.twseDataGrabber.DownloadDataRange(endDate, backdays, this);
                 
@@ -143,33 +147,119 @@ namespace StockSelect
 		{
 			this.dataGridViewTWSE.DataSource = new BindingSource(this.twse_list, null);
             this.dataGridViewOTC.DataSource = new BindingSource(this.otc_list, null);
+			this.dataGridViewNoData.DataSource = new BindingSource(this.noData_list, null);
 		}
 
         private void buttonSaveXml_Click(object sender, EventArgs e)
         {
-            controller.WriteXML(this.twseDataGrabber.GetStockInfoList());
+			if (controller.CheckFileExist(TWSExmlFileName))
+			{
+				DialogResult dialogResult = MessageBox.Show("已經有TWSE的資料，確定要覆蓋?", "警告"
+					, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+				if (dialogResult == DialogResult.Yes)
+				{
+					controller.WriteXML(this.twseDataGrabber.GetStockInfoList(), this.TWSExmlFileName);
+				}
+				else if (dialogResult == DialogResult.No)
+				{
+					//do nothing.
+				}
+			}
+			else
+			{
+				controller.WriteXML(this.twseDataGrabber.GetStockInfoList(), this.TWSExmlFileName);
+			}
+
+			if (controller.CheckFileExist(OTCxmlFileName))
+			{
+				DialogResult dialogResult = MessageBox.Show("已經有OTC的資料，確定要覆蓋?", "警告"
+					, MessageBoxButtons.YesNo, MessageBoxIcon.Information);
+				if (dialogResult == DialogResult.Yes)
+				{
+					controller.WriteXML(this.otcDataGrabber.GetStockInfoList(), this.OTCxmlFileName);
+				}
+				else if (dialogResult == DialogResult.No)
+				{
+					//do nothing.
+				}
+			}
+			else
+			{
+				controller.WriteXML(this.otcDataGrabber.GetStockInfoList(), this.OTCxmlFileName);
+			}
+			
+
             MessageBox.Show("資料儲存完成!", "資料儲存完成!",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
         private void buttonLoadXml_Click(object sender, EventArgs e)
         {
-            if (controller.CheckFileExist())
+			// TWSE
+            if (controller.CheckFileExist(TWSExmlFileName))
             {
-                this.twseDataGrabber.SetStockInfoList(controller.ReadXML<List<StockInfo>>());
-                MessageBox.Show("資料讀取完成!", "資料讀取完成!",
+                this.twseDataGrabber.SetStockInfoList(controller.ReadXML<List<StockInfo>>(TWSExmlFileName));
+                MessageBox.Show("TWSE資料讀取完成!", "資料讀取完成!",
                         MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             else
             {
-                MessageBox.Show("資料檔案不存在!", "資料檔案不存在!",
+                MessageBox.Show(TWSExmlFileName + " 資料檔案不存在!", "TWSE資料檔案不存在!",
                         MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
+
+			// OTC
+			if (controller.CheckFileExist(OTCxmlFileName))
+			{
+				this.otcDataGrabber.SetStockInfoList(controller.ReadXML<List<StockInfo>>(OTCxmlFileName));
+				MessageBox.Show("OTC資料讀取完成!", "資料讀取完成!",
+						MessageBoxButtons.OK, MessageBoxIcon.Information);
+			}
+			else
+			{
+				MessageBox.Show(OTCxmlFileName + " 資料檔案不存在!", "OTC資料檔案不存在!",
+						MessageBoxButtons.OK, MessageBoxIcon.Stop);
+			}
         }
 
         private void buttonCheckData_Click(object sender, EventArgs e)
         {
-
+			this.arangeNoDataList();
+			this.refreshDataGridView();
         }
+
+		private void arangeNoDataList()
+		{
+			this.noData_list.Clear();
+			DateTime date = this.dateTimePickerAnalysisDate.Value;
+			int backdays = (int)this.numericUpDownAnalysisBackdays.Value;
+			
+			this.AddNoDataInfo(this.twseDataGrabber.GetNoDataList(date, backdays));
+			this.AddNoDataInfo(this.otcDataGrabber.GetNoDataList(date, backdays));
+		}
+
+		private void AddNoDataInfo(List<DateTime> nodatalist)
+		{
+			foreach (var data in nodatalist)
+			{
+				NoDataInfo d = (from dd in this.noData_list
+								where dd.Date.Date == data.Date.Date
+								select dd).FirstOrDefault();
+
+				if (d == null)
+				{
+					NoDataInfo info = new NoDataInfo();
+					info.Date = data.Date;
+					info.Weekday = data.Date.ToString("ddd");
+					this.noData_list.Add(info);
+				}
+			}
+		}
     }
+
+	public class NoDataInfo
+	{
+		public DateTime Date { get; set; }
+		public string Weekday { get; set; }
+	}
 }

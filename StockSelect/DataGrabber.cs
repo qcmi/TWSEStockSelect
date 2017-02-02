@@ -27,7 +27,8 @@ namespace StockSelect
             int daycount = 0;
             while (daycount < backdays)
             {
-                if ((int)date.DayOfWeek != 6 && (int)date.DayOfWeek != 7)
+				// 6 == Sat, 0 == Sun
+                if ((int)date.DayOfWeek != 6 && (int)date.DayOfWeek != 0)
                 {
                     if (!data_list[0].DataExist(date))
                     {
@@ -78,19 +79,21 @@ namespace StockSelect
                             where p.Date.Date == queryDate.Date
                             select p).FirstOrDefault();
 
-            if (existP == null && Int32.Parse(Volume) != 0 && Open != "--" && Open != "---")
+            if (existP == null && Int64.Parse(Volume) != 0 && Open != "--" && Open != "---")
             {
                 Price p = new Price();
                 p.Date = queryDate.Date;
 
-                p.Volume = Int32.Parse(Volume);
+                p.Volume = Int64.Parse(Volume);
                 p.Open = Double.Parse(Open);
                 p.High = Double.Parse(High);
                 p.Low = Double.Parse(Low);
                 p.Close = Double.Parse(Close);
 
-                stock.AddPrice(p);
+                stock.AddPrice(p);			
             }
+
+			stock.SortPriceListDesc();
         }
 
         public void DownloadDataRange(DateTime EndDate, int backDays, MainForm form)
@@ -101,13 +104,15 @@ namespace StockSelect
 
             Thread t = new Thread(() =>
             {
-                while (count < backDays)
+                while (count <= backDays)
                 {
                     DownloadData(date);
                     date = date.AddDays(-1);
                     count = this.data_list[0].GetPrice.Count;
-
-                    percent = (double)(((double)100 * count) / backDays);
+					if (backDays == 0)
+						percent = 100.0;
+					else
+						percent = (double)(((double)100 * count) / (backDays + 1));
                     form.updateProgress(percent);
                 }
                 this.IsDownloadFinish = true;

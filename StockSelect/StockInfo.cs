@@ -13,6 +13,13 @@ namespace StockSelect
 		public string Code { get; set; }
 		public List<Price> GetPrice { get { return price_list;} }
 
+		public void SortPriceListDesc()
+		{
+			this.price_list = (from p in price_list
+							   orderby p.Date descending
+							   select p).ToList();
+		}
+
 		public void AddPrice(Price p)
 		{
 			this.price_list.Add(p);
@@ -142,7 +149,7 @@ namespace StockSelect
 		public double Open { get; set; }
 		public double High { get; set; }
 		public double Low { get; set; }
-		public int Volume { get; set; }
+		public Int64 Volume { get; set; }
 	}
 
 	public class StockView

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using System.IO;
 
 namespace StockSelect
@@ -17,26 +16,28 @@ namespace StockSelect
 			folderPath = Directory.GetCurrentDirectory() + folderPath;
 		}
 
-        public void WriteXML(object o)
+        public void WriteXML(object o, string filename)
         {
-
             this.CreateFolder();
             System.Xml.Serialization.XmlSerializer writer =
                 new System.Xml.Serialization.XmlSerializer(o.GetType());
 
-            string path = folderPath + @"\data.xml";
+			filename = filename + ".xml";
+			string path = folderPath + @"\" + filename;
             System.IO.FileStream file = System.IO.File.Create(path);
 
             writer.Serialize(file, o);
             file.Close();
         }
 
-        public T ReadXML<T>()
+        public T ReadXML<T>(string filename)
         {
             // Now we can read the serialized book ...
             System.Xml.Serialization.XmlSerializer reader =
                 new System.Xml.Serialization.XmlSerializer(typeof(T));
-            string path = folderPath + @"\data.xml";
+
+			filename = filename + ".xml";
+			string path = folderPath + @"\" + filename;
             System.IO.StreamReader file = new System.IO.StreamReader(path);
 
             T obj = (T)reader.Deserialize(file);
@@ -45,9 +46,10 @@ namespace StockSelect
             return obj;
         }
 
-        public bool CheckFileExist()
+        public bool CheckFileExist(string filename)
 		{
-			return File.Exists(folderPath + @"\data.xml");
+			filename = filename + ".xml";
+			return File.Exists(folderPath + @"\" + filename);
 		}
 
 		public void CreateFolder()

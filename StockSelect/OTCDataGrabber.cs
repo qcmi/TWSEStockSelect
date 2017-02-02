@@ -11,8 +11,10 @@ namespace StockSelect
         string UrlEnd;
         public OTCDataGrabber() : base()
         {
-            this.Url = "http://www.tpex.org.tw/web/stock/aftertrading/daily_close_quotes/stk_quote_print.php?l=zh-tw&d=";
-            this.UrlEnd = "&s=0,asc,0";
+            //this.Url = "http://www.tpex.org.tw/web/stock/aftertrading/daily_close_quotes/stk_quote_print.php?l=zh-tw&d=";
+            //this.UrlEnd = "&s=0,asc,0";
+			this.Url = "http://www.tpex.org.tw/web/stock/aftertrading/otc_quotes_no1430/stk_wn1430_print.php?l=zh-tw&d=";
+			this.UrlEnd = "&se=EW&s=0,asc,0";
         }
 
          override public void DownloadData(DateTime queryDate)
@@ -26,40 +28,43 @@ namespace StockSelect
             HtmlDocument doc = web.Load(downloadUrl);
 
             HtmlNodeCollection nameNodes = doc.DocumentNode.SelectNodes("//table//tbody");
-            foreach (HtmlNode table in nameNodes)
-            {
-                Console.WriteLine("Found: " + table.Id);
-                foreach (HtmlNode row in table.SelectNodes("tr"))
-                {
-                    if (row.SelectNodes("th|td")[0].InnerText != "管理股票")
-                    {
-                        if (row.SelectNodes("th|td")[0].InnerText.Length == 4 || row.SelectNodes("th|td")[0].InnerText == "006201")
-                        {
+			if (nameNodes != null)
+			{
+				foreach (HtmlNode table in nameNodes)
+				{
+					Console.WriteLine("Found: " + table.Id);
+					foreach (HtmlNode row in table.SelectNodes("tr"))
+					{
+						if (row.SelectNodes("th|td")[0].InnerText != "管理股票")
+						{
+							if (row.SelectNodes("th|td")[0].InnerText.Length == 4 || row.SelectNodes("th|td")[0].InnerText == "006201")
+							{
 
-                            // 0 代號
-                            // 1 名稱  
-                            // 2 收盤 
-                            // 3 漲跌  
-                            // 4 開盤 
-                            // 5 最高  
-                            // 6 最低 
-                            // 7 均價  
-                            // 8 成交股數
-                            // 9 成交金額(元)
-                            // Console.WriteLine(row.SelectNodes("th|td")[i].InnerText);
-                            this.InsertStockPrice(queryDate,
-                                                   row.SelectNodes("th|td")[0].InnerText.Trim(),   // Code
-                                                   row.SelectNodes("th|td")[1].InnerText.Trim(),   // Name                                                
-                                                   row.SelectNodes("th|td")[4].InnerText,   // Open
-                                                   row.SelectNodes("th|td")[5].InnerText,   // High
-                                                   row.SelectNodes("th|td")[6].InnerText,   // Low
-                                                   row.SelectNodes("th|td")[2].InnerText,   // Close
-                                                   row.SelectNodes("th|td")[8].InnerText);  // Volume
+								// 0 代號
+								// 1 名稱  
+								// 2 收盤 
+								// 3 漲跌  
+								// 4 開盤 
+								// 5 最高  
+								// 6 最低 
+								// 7 均價  
+								// 8 成交股數
+								// 9 成交金額(元)
+								// Console.WriteLine(row.SelectNodes("th|td")[i].InnerText);
+								this.InsertStockPrice(queryDate,
+													   row.SelectNodes("th|td")[0].InnerText.Trim(),   // Code
+													   row.SelectNodes("th|td")[1].InnerText.Trim(),   // Name                                                
+													   row.SelectNodes("th|td")[4].InnerText,   // Open
+													   row.SelectNodes("th|td")[5].InnerText,   // High
+													   row.SelectNodes("th|td")[6].InnerText,   // Low
+													   row.SelectNodes("th|td")[2].InnerText,   // Close
+													   row.SelectNodes("th|td")[8].InnerText);  // Volume
 
-                        }                    
-                    }
-                }
-            }
+							}
+						}
+					}
+				}
+			}      
         }
     }
 }

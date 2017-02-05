@@ -92,6 +92,21 @@ namespace StockSelect
                 return false;
         }
 
+        public bool IsPriceContinuiouslyDown(DateTime date, int backdays)
+        {
+            List<Price> p_list = this.GetPriceListFromDateByBackdays(date, backdays);
+
+            for (int i = 1; i < p_list.Count; i++)
+            {
+                // 如果今天股票價格 => 前一天股票價格
+                // 表示沒有連續下跌
+                if (p_list[i].Close <= p_list[i - 1].Close) 
+                    return false;
+            }
+
+            return true;
+        }
+
         public double AvgVolume()
 		{
 			double avgVolume = (from p in price_list

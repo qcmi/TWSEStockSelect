@@ -117,9 +117,11 @@ namespace StockSelect
                     {
                         DownloadData(date);
                     }
-                                    
+                    if (this.data_list[0].DataExist(date))
+                        count++;
+
                     date = date.AddDays(-1);
-                    count = this.data_list[0].GetPrice.Count;
+                    
 					if (backDays == 0)
 						percent = 100.0;
 					else

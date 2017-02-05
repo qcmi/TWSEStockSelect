@@ -87,7 +87,12 @@ namespace StockSelect
 			this.Invoke((MethodInvoker)delegate()
 			{
 				this.labelProgress.Text = "已完成[" + percent.ToString("0.00") + "%]";
-				this.progressBarDownload.Value = Convert.ToInt32(percent);
+                if (percent >= 100)
+                    this.progressBarDownload.Value = 100;
+                else if (percent <= 0)
+                    this.progressBarDownload.Value = 0;
+                else
+                    this.progressBarDownload.Value = Convert.ToInt32(percent);				
 			});			
 		}
 
@@ -106,13 +111,6 @@ namespace StockSelect
 			{
 				this.panelProgress.Visible = isVisible;
 			});	
-		}
-
-		private void buttonSelectStocks_Click(object sender, EventArgs e)
-		{
-			this.StocksAnalys(ref this.twse_list, this.twseDataGrabber);
-            this.StocksAnalys(ref this.otc_list, this.otcDataGrabber);
-            this.refreshDataGridView();
 		}
 
 		private void StocksAnalys(ref BindingList<StockView> viewList, DataGrabber grabber)
@@ -142,6 +140,31 @@ namespace StockSelect
 				}				
 			}
 		}
+
+        private void StocksPsyLineAnalys(ref BindingList<StockView> viewList, DataGrabber grabber)
+        {
+            viewList.Clear();
+            DateTime date = this.dateTimePickerAnalysisDate.Value;
+            int backdays = 5; //心理線參數固定5天，意思是連續下跌5天的挑出來
+            List<StockInfo> info_list = grabber.GetStockInfoList();
+
+            int flowNo = 1;
+            foreach (var info in info_list)
+            {
+                if (info.GetPrice.Count > (backdays - 2) && info.DataExist(date))
+                {
+                    if (info.IsPriceContinuiouslyDown(date, backdays))                     
+                    {
+                        StockView s = new StockView();
+                        s.FlowNo = flowNo;
+                        s.Code = info.Code;
+                        s.Name = info.Name;
+                        viewList.Add(s);
+                        flowNo++;
+                    }
+                }
+            }
+        }
 
 		private void refreshDataGridView()
 		{
@@ -222,17 +245,11 @@ namespace StockSelect
 			}
         }
 
-        private void buttonCheckData_Click(object sender, EventArgs e)
-        {
-			this.arangeNoDataList();
-			this.refreshDataGridView();
-        }
 
-		private void arangeNoDataList()
+		private void arangeNoDataList(int backdays)
 		{
 			this.noData_list.Clear();
 			DateTime date = this.dateTimePickerAnalysisDate.Value;
-			int backdays = (int)this.numericUpDownAnalysisBackdays.Value;
 			
 			this.AddNoDataInfo(this.twseDataGrabber.GetNoDataList(date, backdays));
 			this.AddNoDataInfo(this.otcDataGrabber.GetNoDataList(date, backdays));
@@ -255,9 +272,37 @@ namespace StockSelect
 				}
 			}
 		}
+
+        private void buttonCheckDataVolumn_Click(object sender, EventArgs e)
+        {
+            int backdays = (int)this.numericUpDownAnalysisBackdays.Value;
+            this.arangeNoDataList(backdays);
+            this.refreshDataGridView();
+        }
+
+        private void buttonSelectStocksVolumn_Click(object sender, EventArgs e)
+        {
+            this.StocksAnalys(ref this.twse_list, this.twseDataGrabber);
+            this.StocksAnalys(ref this.otc_list, this.otcDataGrabber);
+            this.refreshDataGridView();
+        }
+
+        private void buttonCheckDataPsy_Click(object sender, EventArgs e)
+        {
+            int backdays = 5;
+            this.arangeNoDataList(backdays);
+            this.refreshDataGridView();
+        }
+
+        private void buttonSelectStocksPsy_Click(object sender, EventArgs e)
+        {
+            this.StocksPsyLineAnalys(ref this.twse_list, this.twseDataGrabber);
+            this.StocksPsyLineAnalys(ref this.otc_list, this.otcDataGrabber);
+            this.refreshDataGridView();
+        }
     }
 
-	public class NoDataInfo
+    public class NoDataInfo
 	{
 		public DateTime Date { get; set; }
 		public string Weekday { get; set; }

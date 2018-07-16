@@ -32,37 +32,41 @@ namespace StockSelect
 			{
 				foreach (HtmlNode table in nameNodes)
 				{
-					Console.WriteLine("Found: " + table.Id);
-					foreach (HtmlNode row in table.SelectNodes("tr"))
-					{
-						if (row.SelectNodes("th|td")[0].InnerText != "管理股票")
-						{
-							if (row.SelectNodes("th|td")[0].InnerText.Length == 4 || row.SelectNodes("th|td")[0].InnerText == "006201")
-							{
+                    //Console.WriteLine("Found: " + table.Id);
+                    var htmlNode_list = table.SelectNodes("tr");
+                    if (htmlNode_list != null)
+                    {
+                        foreach (HtmlNode row in htmlNode_list)
+                        {
+                            if (row.SelectNodes("th|td")[0].InnerText != "管理股票")
+                            {
+                                if (row.SelectNodes("th|td")[0].InnerText.Length == 4 || row.SelectNodes("th|td")[0].InnerText == "006201")
+                                {
 
-								// 0 代號
-								// 1 名稱  
-								// 2 收盤 
-								// 3 漲跌  
-								// 4 開盤 
-								// 5 最高  
-								// 6 最低 
-								// 7 均價  
-								// 8 成交股數
-								// 9 成交金額(元)
-								// Console.WriteLine(row.SelectNodes("th|td")[i].InnerText);
-								this.InsertStockPrice(queryDate,
-													   row.SelectNodes("th|td")[0].InnerText.Trim(),   // Code
-													   row.SelectNodes("th|td")[1].InnerText.Trim(),   // Name                                                
-													   row.SelectNodes("th|td")[4].InnerText,   // Open
-													   row.SelectNodes("th|td")[5].InnerText,   // High
-													   row.SelectNodes("th|td")[6].InnerText,   // Low
-													   row.SelectNodes("th|td")[2].InnerText,   // Close
-													   row.SelectNodes("th|td")[8].InnerText);  // Volume
+                                    // 0 代號
+                                    // 1 名稱  
+                                    // 2 收盤 
+                                    // 3 漲跌  
+                                    // 4 開盤 
+                                    // 5 最高  
+                                    // 6 最低 
+                                    // 7 均價  
+                                    // 8 成交股數
+                                    // 9 成交金額(元)
+                                    // Console.WriteLine(row.SelectNodes("th|td")[i].InnerText);
+                                    this.InsertStockPrice(queryDate,
+                                                           row.SelectNodes("th|td")[0].InnerText.Trim(),   // Code
+                                                           row.SelectNodes("th|td")[1].InnerText.Trim(),   // Name                                                
+                                                           row.SelectNodes("th|td")[4].InnerText,   // Open
+                                                           row.SelectNodes("th|td")[5].InnerText,   // High
+                                                           row.SelectNodes("th|td")[6].InnerText,   // Low
+                                                           row.SelectNodes("th|td")[2].InnerText,   // Close
+                                                           row.SelectNodes("th|td")[8].InnerText);  // Volume
 
-							}
-						}
-					}
+                                }
+                            }
+                        }
+                    }				
 				}
 			}      
         }

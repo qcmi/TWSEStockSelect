@@ -20,7 +20,7 @@ namespace StockSelect
             // this.Url = "http://www.twse.com.tw/ch/trading/exchange/MI_INDEX/MI_INDEX.php";
 
             // 證交所網頁 2017/5/23改版
-            this.Url = "http://www.twse.com.tw/exchangeReport/MI_INDEX";
+            this.Url = "https://www.twse.com.tw/exchangeReport/MI_INDEX";
         }
 
         //public void DownloadDataRange(DateTime FromDate, DateTime ToDate)
@@ -61,7 +61,7 @@ namespace StockSelect
 
                             if (nameNodes != null)
                             {
-                                foreach (HtmlNode row in nameNodes[4].SelectNodes("tr"))
+                                foreach (HtmlNode row in nameNodes[8].SelectNodes("tr")) //20190718 改成Node 8
                                 {
                                     // 0 證券代號 	
                                     // 1 證券名稱 	
